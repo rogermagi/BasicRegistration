@@ -1,5 +1,4 @@
 <%@ page import="java.util.ArrayList,com.example.employeeregistration.model.*" %>
-<%@ page import="java.io.IOException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,7 +23,7 @@
         <tbody>
 
             <%
-                ArrayList<Employee> employees = (ArrayList)session.getAttribute("employees");
+                ArrayList<Employee> employees = (ArrayList<Employee>)session.getAttribute("employees");
                 //out.println("Employees Object:" + employees);
                 out.println("<form id=\"empForm\" action=\"/EmployeeRegistration/emp-servlet\">");
                 for(Employee emp : employees){

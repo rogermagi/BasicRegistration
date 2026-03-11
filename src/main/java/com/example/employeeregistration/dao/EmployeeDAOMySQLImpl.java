@@ -14,7 +14,7 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
 
     @Override
     public Connection getConnection() throws ClassNotFoundException, SQLException {
-        Connection conn = null;
+        Connection conn;
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         //Get the DB Connection
@@ -25,8 +25,8 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
 
     public int addEmployee(Employee employee) throws SQLException, ClassNotFoundException {
 
-        Connection conn = null;
-        int num = 0;
+        Connection conn;
+        int num;
 
         conn = getConnection();
 
@@ -49,7 +49,7 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
     @Override
     public ArrayList<Employee> getEmployees() throws SQLException, ClassNotFoundException {
 
-        Connection conn = null;
+        Connection conn;
         String SQL = "SELECT * FROM mydb.employee;";
         ArrayList<Employee> employees = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
         ResultSet resultSet = statement.executeQuery(SQL);
         /*JsonObject jsonObject = null;
         JsonArray jsArray = Json.createArrayBuilder().build();*/
-        int empID=0;
+        int empID;
 
         while (resultSet.next()) {
             Employee employee = new Employee();
@@ -99,7 +99,7 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
     @Override
     public Employee getEmployee(String param) throws SQLException, ClassNotFoundException {
 
-        Connection conn = null;
+        Connection conn;
 
         String SQL = "SELECT * FROM mydb.employee where emp_id = ?;";
         System.out.println("SQL:"+ SQL + " " + param);
@@ -122,7 +122,6 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
         }
 
         try{
-            assert conn != null;
             conn.close();
         }
         catch (SQLException e){
@@ -133,12 +132,10 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
 
     @Override
     public int updateEmployee(Employee employee) throws SQLException, ClassNotFoundException {
-        Connection conn = null;
-        int num = 0;
+        Connection conn;
+        int num;
 
         conn = getConnection();
-        boolean continueStr=false;
-
         StringBuilder SQL = new StringBuilder("UPDATE mydb.employee set ");
         ArrayList<Object> params = new ArrayList<>();
 
@@ -175,13 +172,12 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
         for (int i = 0; i < params.size(); i++) {
             prepStmt.setObject(i + 1, params.get(i));
         }
-        System.out.println("SQL: " + prepStmt.toString());
+        System.out.println("SQL: " + prepStmt);
         num = prepStmt.executeUpdate();
 
         System.out.println("Successfully updated " + num + " record(s) into mydb.employee table");
 
         try{
-            assert conn != null;
             conn.close();
         }
         catch (SQLException e){
@@ -192,8 +188,8 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
 
     @Override
     public int deleteEmployee(Employee employee) throws SQLException, ClassNotFoundException {
-        Connection conn = null;
-        int num = 0;
+        Connection conn;
+        int num;
 
         conn = getConnection();
 
@@ -203,13 +199,12 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
 
         PreparedStatement statement = conn.prepareStatement(SQL);
         statement.setInt(1, empID);
-        System.out.println("PrepStmt: " +statement.toString());
+        System.out.println("PrepStmt: " +statement);
         num = statement.executeUpdate();
 
         System.out.println("Successfully deleted " + num + " record(s) from mydb.employee table");
 
         try{
-            assert conn != null;
             conn.close();
         }
         catch (SQLException e){
