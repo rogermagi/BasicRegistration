@@ -9,6 +9,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -30,6 +31,7 @@ target/
 /.nb-gradle/
 build/
 src/**/utils/
+src/**/resources
 !**/src/main/**/build/
 !**/src/test/**/build/
 

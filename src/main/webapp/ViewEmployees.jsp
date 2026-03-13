@@ -25,7 +25,7 @@
             <%
                 ArrayList<Employee> employees = (ArrayList<Employee>)session.getAttribute("employees");
                 //out.println("Employees Object:" + employees);
-                out.println("<form id=\"empForm\" action=\"/EmployeeRegistration/emp-servlet\">");
+                out.println("<form id='empForm' action='emp-servlet'>");
                 for(Employee emp : employees){
                     out.println("<tr>");
                     out.println("<td class=\"tg-0pky\">" + emp.getEmpID() + "</td>");
@@ -34,8 +34,8 @@
                     out.println("<td class=\"tg-0lax\">" + emp.getUserName() + "</td>");
                     out.println("<td class=\"tg-0lax\">" + emp.getEmail() + "</td>");
                     out.println("<td class=\"tg-0lax\">" + emp.getPhoneNumber() + "</td>");
-                    out.println("<td class=\"tg-0lax\"><button id=\"update-button-" + emp.getEmpID() + "\" onclick=\"submitForm(\'UPDATE\'," + emp.getEmpID() + ")\">Update Emp</button></td>");
-                    out.println("<td class=\"tg-0lax\"><button id=\"delete-button-" + emp.getEmpID() + "\" onclick=\"submitForm(\'DELETE\'," + emp.getEmpID() + ")\">Delete Emp</button></td>");
+                    out.println("<td class=\"tg-0lax\"><button id=\"update-button-" + emp.getEmpID() + "\" onclick=\"submitForm('UPDATE'," + emp.getEmpID() + ")\">Update Emp</button></td>");
+                    out.println("<td class=\"tg-0lax\"><button id=\"delete-button-" + emp.getEmpID() + "\" onclick=\"submitForm('DELETE'," + emp.getEmpID() + ")\">Delete Emp</button></td>");
                     out.println("</tr>");
                 }
                 out.println("</form");

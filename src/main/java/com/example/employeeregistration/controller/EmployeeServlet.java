@@ -3,8 +3,6 @@ package com.example.employeeregistration.controller;
 import com.example.employeeregistration.dao.DAOFactory;
 import com.example.employeeregistration.dao.EmployeeDAO;
 import com.example.employeeregistration.model.Employee;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ public class EmployeeServlet extends HttpServlet {
     EmployeeDAO employeeDAO = null;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
 
         employeeDAO = DAOFactory.getEmployeeDAO(getServletContext().getInitParameter("database-name"));
     }

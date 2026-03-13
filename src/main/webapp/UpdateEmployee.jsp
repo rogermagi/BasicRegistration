@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<form name="employee-form" action="${pageContext.request.contextPath}/emp-servlet" method="POST">
+<form name="employee-form" action="emp-servlet" method="POST">
   <input type="hidden" name="_method" value="UPDATE">
   <table class="tg">
     <tbody>
