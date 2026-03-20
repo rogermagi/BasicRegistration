@@ -2,11 +2,6 @@ package com.example.employeeregistration.dao;
 
 import com.example.employeeregistration.model.Employee;
 import com.example.utils.MySQLParams;
-/*import jakarta.json.Json;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;*/
-
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -43,6 +38,12 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
         num = preparedStatement.executeUpdate();
         System.out.println("Successfully inserted " + num + " record into mydb.employee table");
 
+        try{
+            conn.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
         return num;
     }
 
@@ -56,8 +57,6 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
         conn = getConnection();
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
-        /*JsonObject jsonObject = null;
-        JsonArray jsArray = Json.createArrayBuilder().build();*/
         int empID;
 
         while (resultSet.next()) {
@@ -72,26 +71,14 @@ public class EmployeeDAOMySQLImpl implements EmployeeDAO {
             employee.setPhoneNumber(resultSet.getString("phone"));
 
             employees.add(employee);
-
-            /*jsonObject = Json.createObjectBuilder()
-                    .add("empID", resultSet.getString("emp_id"))
-                    .add("firstName", resultSet.getString("first_name"))
-                    .add("lastName", resultSet.getString("last_name"))
-                    .add("userName", resultSet.getString("user_name"))
-                    .add("email", resultSet.getString("email"))
-                    .add("phone", resultSet.getString("phone"))
-                    .build();
-            jsArray.add(jsonObject);*/
-            //Ends here
         }
 
-        /*JsonObject temp = jsArray.getJsonObject(0);
-        System.out.println("json empid:" + temp.getString("empID"));
-        System.out.println("json fname:"+temp.getString("firstName"));
-        System.out.println(temp.getString("lastName"));
-        System.out.println(temp.getString("userName"));
-        System.out.println(temp.getString("email"));
-        System.out.println(temp.getString("phone"));*/
+        try{
+            conn.close();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
 
         return employees;
     }

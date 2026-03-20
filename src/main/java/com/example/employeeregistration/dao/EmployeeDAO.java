@@ -12,8 +12,8 @@ public interface EmployeeDAO {
     int addEmployee(Employee  employee) throws SQLException, ClassNotFoundException;
 
     ArrayList<Employee> getEmployees() throws SQLException, ClassNotFoundException;
-
     Employee getEmployee(String param) throws SQLException, ClassNotFoundException;
+
     int updateEmployee(Employee employee) throws SQLException, ClassNotFoundException;
     int deleteEmployee(Employee employee) throws SQLException, ClassNotFoundException;
 }

@@ -3,6 +3,7 @@ package com.example.employeeregistration.controller;
 import com.example.employeeregistration.dao.DAOFactory;
 import com.example.employeeregistration.dao.EmployeeDAO;
 import com.example.employeeregistration.model.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,6 +70,7 @@ public class EmployeeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("I am in doGET()");
 
+        ObjectMapper mapper = new ObjectMapper();
         HttpSession session = request.getSession();
         String empid = request.getParameter("empid");
         System.out.println("EmpID in request:" + empid);
@@ -82,7 +84,9 @@ public class EmployeeServlet extends HttpServlet {
             if (empid != null) {
                 System.out.println("calling getEmployee()");
                 Employee employee = employeeDAO.getEmployee(empid);
-                session.setAttribute("employee", employee);
+                String employeeJson = mapper.writeValueAsString(employee);
+                request.setAttribute("employee", employeeJson);
+                //session.setAttribute("employee", employee);
                 if (flag != null) {
                     if (flag.equals("UPDATE")) {
                         System.out.println("Forwarding to Update");
@@ -103,7 +107,11 @@ public class EmployeeServlet extends HttpServlet {
             } else {
                 System.out.println("calling getEmployees()");
                 ArrayList<Employee> employees = employeeDAO.getEmployees();
-                session.setAttribute("employees", employees);
+                String jsonString = mapper.writeValueAsString(employees);
+                //Sending a String (NOT ARRAY OF EMPLOYEE OBJECTS)
+                //session.setAttribute("employees", jsonString);
+                request.setAttribute("employees", jsonString);
+
                 request.getRequestDispatcher("ViewEmployees.jsp").forward(request, response);
             }
         } catch (Exception ex){

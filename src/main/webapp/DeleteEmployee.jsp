@@ -1,4 +1,6 @@
 <%@ page import="com.example.employeeregistration.model.Employee" %>
+<%@ page import="com.fasterxml.jackson.databind.node.ObjectNode" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,8 +13,11 @@
     <table class="tg">
         <tbody>
         <%
-            Employee employee = (Employee) session.getAttribute("employee");
-            System.out.println("Employee:" +employee);
+            //Employee employee = (Employee) session.getAttribute("employee");
+            String employeeJson = (String)request.getAttribute("employee");
+            System.out.println("Employee:" +employeeJson);
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode employee = mapper.readValue(employeeJson,ObjectNode.class);
         %>
         <tr>
             <td class="tg-0pky" colspan="2"><h1>Delete Employee</h1></td>
@@ -22,32 +27,32 @@
         </tr>
         <tr>
             <td class="tg-0pky"><label>Employee ID </label></td>
-            <td class="tg-0pky"><input type="text" name="empid" value="<%=employee.getEmpID()%>" readonly/></td>
+            <td class="tg-0pky"><input type="text" name="empid" value=<%=employee.get("empID")%> readonly/></td>
         </tr>
         <tr>
             <td class="tg-0pky"><label>First Name </label></td>
-            <td class="tg-0pky"><input type="text" name="fname" value="<%=employee.getFirstName()%>" disabled/></td>
+            <td class="tg-0pky"><input type="text" name="fname" value=<%=employee.get("firstName")%> disabled/></td>
        </tr>
         <tr>
             <td class="tg-0pky"><label>Last Name </label></td>
-            <td class="tg-0pky"><input type="text" name="lname" value="<%=employee.getLastName()%>" disabled/></td>
+            <td class="tg-0pky"><input type="text" name="lname" value=<%=employee.get("lastName")%> disabled/></td>
 
         </tr>
         <tr>
             <td class="tg-0pky"><label>User Name </label></td>
-            <td class="tg-0pky"><input type="text" name="uname" value="<%=employee.getUserName()%>" disabled/></td>
+            <td class="tg-0pky"><input type="text" name="uname" value=<%=employee.get("userName")%> disabled/></td>
         </tr>
         <tr>
             <td class="tg-0pky"><label>New Password </label></td>
-            <td class="tg-0pky"><input type="password" name="password" value="<%=employee.getPassword()%>" disabled/></td>
+            <td class="tg-0pky"><input type="password" name="password" value=<%=employee.get("password")%> disabled/></td>
         </tr>
         <tr>
             <td class="tg-0pky"><label>Email </label></td>
-            <td class="tg-0pky"><input type="email" name="email" value="<%=employee.getEmail()%>" disabled/></td>
+            <td class="tg-0pky"><input type="email" name="email" value=<%=employee.get("email")%> disabled/></td>
         </tr>
         <tr>
             <td class="tg-0pky"><label>Phone Number </label></td>
-            <td class="tg-0pky"><input type="tel" name="phone" value="<%=employee.getPhoneNumber()%>" disabled/></td>
+            <td class="tg-0pky"><input type="tel" name="phone" value=<%=employee.get("phoneNumber")%> disabled/></td>
         </tr>
 
         <tr>

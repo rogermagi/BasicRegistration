@@ -1,4 +1,7 @@
 <%@ page import="java.util.ArrayList,com.example.employeeregistration.model.*" %>
+<%@ page import="com.fasterxml.jackson.databind.node.ObjectNode" %>
+<%@ page import="com.fasterxml.jackson.databind.ObjectMapper" %>
+<%@ page import="com.fasterxml.jackson.databind.JsonNode" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,19 +26,37 @@
         <tbody>
 
             <%
-                ArrayList<Employee> employees = (ArrayList<Employee>)session.getAttribute("employees");
-                //out.println("Employees Object:" + employees);
+                //ArrayList<Employee> employees = (ArrayList<Employee>)session.getAttribute("employees");
+                //String employeesJson = (String)session.getAttribute("employees");
+                String employeesJson = (String)request.getAttribute("employees");
+                ObjectMapper mapper = new ObjectMapper();
+                //Employee[] employees = mapper.readValue(employeesJson, Employee[].class);
+                ObjectNode[] employees = mapper.readValue(employeesJson, ObjectNode[].class);
+                //out.println("Employees Object:" + employeesJson);
+                /*
+
+                {
+                "empID":1,
+                "firstName":"John",
+                "lastName":"Doe",
+                "userName":"johndoe",
+                "password":null,
+                "email":"johndoe@example.com",
+                "phoneNumber":"123-456-7890"
+                }
+                */
+
                 out.println("<form id='empForm' action='emp-servlet'>");
-                for(Employee emp : employees){
+                for(JsonNode employee : employees){
                     out.println("<tr>");
-                    out.println("<td class=\"tg-0pky\">" + emp.getEmpID() + "</td>");
-                    out.println( "<td class=\"tg-0pky\">" + emp.getFirstName() + "</td>");
-                    out.println("<td class=\"tg-0lax\">" + emp.getLastName() + "</td>");
-                    out.println("<td class=\"tg-0lax\">" + emp.getUserName() + "</td>");
-                    out.println("<td class=\"tg-0lax\">" + emp.getEmail() + "</td>");
-                    out.println("<td class=\"tg-0lax\">" + emp.getPhoneNumber() + "</td>");
-                    out.println("<td class=\"tg-0lax\"><button id=\"update-button-" + emp.getEmpID() + "\" onclick=\"submitForm('UPDATE'," + emp.getEmpID() + ")\">Update Emp</button></td>");
-                    out.println("<td class=\"tg-0lax\"><button id=\"delete-button-" + emp.getEmpID() + "\" onclick=\"submitForm('DELETE'," + emp.getEmpID() + ")\">Delete Emp</button></td>");
+                    out.println("<td class=\"tg-0pky\">" + employee.get("empID") + "</td>");
+                    out.println( "<td class=\"tg-0pky\">" + employee.get("firstName") + "</td>");
+                    out.println("<td class=\"tg-0lax\">" + employee.get("lastName") + "</td>");
+                    out.println("<td class=\"tg-0lax\">" + employee.get("userName") + "</td>");
+                    out.println("<td class=\"tg-0lax\">" + employee.get("email") + "</td>");
+                    out.println("<td class=\"tg-0lax\">" + employee.get("phoneNumber") + "</td>");
+                    out.println("<td class=\"tg-0lax\"><button id=\"update-button-" + employee.get("empID") + "\" onclick=\"submitForm('UPDATE'," + employee.get("empID") + ")\">Update Emp</button></td>");
+                    out.println("<td class=\"tg-0lax\"><button id=\"delete-button-" + employee.get("empID") + "\" onclick=\"submitForm('DELETE'," + employee.get("empID") + ")\">Delete Emp</button></td>");
                     out.println("</tr>");
                 }
                 out.println("</form");
